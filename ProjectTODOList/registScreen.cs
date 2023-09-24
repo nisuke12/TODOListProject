@@ -16,7 +16,7 @@ namespace ProjectTODOList
     public partial class registScreen : Form
     {
 
-        private DBConnection _db = new DBConnection(SqlContracts.SERVER_NAME, SqlContracts.PORT_NUM, SqlContracts.DATABASE_NAME, SqlContracts.USER_NAME, SqlContracts.PASSWORD);
+        private DBConnection _db = new DBConnection(AppJsonAccess.getValue(SqlContracts.SERVER_NAME), AppJsonAccess.getValue(SqlContracts.PORT_NUM), AppJsonAccess.getValue(SqlContracts.DATABASE_NAME), AppJsonAccess.getValue(SqlContracts.USER_NAME), AppJsonAccess.getValue(SqlContracts.PASSWORD));
 
 
         public registScreen()
@@ -93,10 +93,10 @@ namespace ProjectTODOList
 
             //登録するためのデータを取得
             var projectName = projectNameTextBox.Text;  //プロジェクト名
-            DBConnection db = new DBConnection(SqlContracts.SERVER_NAME, SqlContracts.PORT_NUM, SqlContracts.DATABASE_NAME, SqlContracts.USER_NAME, SqlContracts.PASSWORD);
+            DBConnection db = new DBConnection(AppJsonAccess.getValue(SqlContracts.SERVER_NAME), AppJsonAccess.getValue(SqlContracts.PORT_NUM), AppJsonAccess.getValue(SqlContracts.DATABASE_NAME), AppJsonAccess.getValue(SqlContracts.USER_NAME), AppJsonAccess.getValue(SqlContracts.PASSWORD));
 
             //プロジェクト名が既に登録されていないか確認する
-            String[] projectNames = db.SelectCommand(SqlContracts.TABLE_NAME_PROJECTS, SqlContracts.COLUMN_NAME_PROJECT_NAME);
+            String[] projectNames = db.SelectCommand(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS), AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME));
             if (projectNames.Contains(projectName))
             {
                 MessageBox.Show("既に登録されたプロジェクトです。別のプロジェクト名に変更してください", "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -115,7 +115,7 @@ namespace ProjectTODOList
                 var estimatedTime = estimatedTimeTrackBar.Value * 0.5;  //予定工数
                 var supplement = supplementTextArea.Text;  //補足
 
-                String[] sqlList = { $"insert into {SqlContracts.TABLE_NAME_PROJECTS} ({SqlContracts.COLUMN_NAME_PROJECT_NAME}, {SqlContracts.COLUMN_NAME_DESIGN_DOCUMENT_LINK},{SqlContracts.COLUMN_NAME_PLANNED_HOURS},{SqlContracts.COLUMN_NAME_SUPPLEMENT}) values(\"{projectName}\", \"{bluePrintLink}\",{estimatedTime},\"{supplement}\")" };
+                String[] sqlList = { $"insert into {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS)} ({AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)}, {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_DESIGN_DOCUMENT_LINK)},{AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PLANNED_HOURS)},{AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_SUPPLEMENT)}) values(\"{projectName}\", \"{bluePrintLink}\",{estimatedTime},\"{supplement}\")" };
                 db.InsertCommand(sqlList,false);
                 db.Commit();
 

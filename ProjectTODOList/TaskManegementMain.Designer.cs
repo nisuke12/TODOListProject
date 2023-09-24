@@ -65,7 +65,7 @@
             this.操作業時間,
             this.これまでに完了したプロジェクト数});
             this.cumulativeGridView.Location = new System.Drawing.Point(1052, 54);
-            this.cumulativeGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cumulativeGridView.Margin = new System.Windows.Forms.Padding(2);
             this.cumulativeGridView.Name = "cumulativeGridView";
             this.cumulativeGridView.RowHeadersWidth = 51;
             this.cumulativeGridView.RowTemplate.Height = 24;
@@ -113,12 +113,13 @@
             this.実工数,
             this.画面設計書リンク});
             this.notFinishPrjGridView.Location = new System.Drawing.Point(39, 54);
-            this.notFinishPrjGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.notFinishPrjGridView.Margin = new System.Windows.Forms.Padding(2);
             this.notFinishPrjGridView.Name = "notFinishPrjGridView";
             this.notFinishPrjGridView.RowHeadersWidth = 51;
             this.notFinishPrjGridView.RowTemplate.Height = 24;
             this.notFinishPrjGridView.Size = new System.Drawing.Size(954, 682);
             this.notFinishPrjGridView.TabIndex = 1;
+            this.notFinishPrjGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.notFinishPrjGridView_CellContentClick);
             this.notFinishPrjGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.NotFinishPrjGridView_CellDoubleClick);
             this.notFinishPrjGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.notFinishPrjGridView_CellValueChanged);
             // 
@@ -197,7 +198,7 @@
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewTextBoxColumn3});
             this.finishPrjGridView.Location = new System.Drawing.Point(1052, 265);
-            this.finishPrjGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.finishPrjGridView.Margin = new System.Windows.Forms.Padding(2);
             this.finishPrjGridView.Name = "finishPrjGridView";
             this.finishPrjGridView.RowHeadersWidth = 51;
             this.finishPrjGridView.RowTemplate.Height = 24;
@@ -242,7 +243,7 @@
             this.updateBtn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.updateBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.updateBtn.Location = new System.Drawing.Point(39, 764);
-            this.updateBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updateBtn.Margin = new System.Windows.Forms.Padding(2);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(97, 43);
             this.updateBtn.TabIndex = 3;
@@ -255,7 +256,7 @@
             this.registBtn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.registBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.registBtn.Location = new System.Drawing.Point(1126, 764);
-            this.registBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.registBtn.Margin = new System.Windows.Forms.Padding(2);
             this.registBtn.Name = "registBtn";
             this.registBtn.Size = new System.Drawing.Size(97, 43);
             this.registBtn.TabIndex = 4;
@@ -268,7 +269,7 @@
             this.deleteBtn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.deleteBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.deleteBtn.Location = new System.Drawing.Point(1240, 764);
-            this.deleteBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteBtn.Margin = new System.Windows.Forms.Padding(2);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(97, 43);
             this.deleteBtn.TabIndex = 5;
@@ -288,7 +289,7 @@
             this.Controls.Add(this.finishPrjGridView);
             this.Controls.Add(this.notFinishPrjGridView);
             this.Controls.Add(this.cumulativeGridView);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TaskManegementMain";
             this.Text = "Form1";
             this.Resize += new System.EventHandler(this.TaskManegementMain_Resize);

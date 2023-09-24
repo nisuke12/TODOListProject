@@ -26,7 +26,7 @@ namespace ProjectTODOList
         private int  btnY = 0;
 
         //DBのインスタンスクラスとの接続
-        private DBConnection _db= new DBConnection(SqlContracts.SERVER_NAME, SqlContracts.PORT_NUM, SqlContracts.DATABASE_NAME, SqlContracts.USER_NAME, SqlContracts.PASSWORD);
+        private DBConnection _db = new DBConnection(AppJsonAccess.getValue(SqlContracts.SERVER_NAME), AppJsonAccess.getValue(SqlContracts.PORT_NUM), AppJsonAccess.getValue(SqlContracts.DATABASE_NAME), AppJsonAccess.getValue(SqlContracts.USER_NAME), AppJsonAccess.getValue(SqlContracts.PASSWORD));
 
         //未完了プロジェクトテーブル
         private DataTable notFinishProjTbl = null;
@@ -134,12 +134,12 @@ namespace ProjectTODOList
             finishPrjGridView.RowHeadersVisible = false;
 
             //完了プロジェクトテーブルにデータを追加する
-            finishProjTbl = _db.getAllColumn(SqlContracts.TABLE_NAME_PROJECTS);
+            finishProjTbl = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS));
             foreach (DataRow row in notFinishProjTbl.Rows)
             {
-                if ($"{row[SqlContracts.COLUMN_NAME_COMPLETE]}".ToLower().Equals("true"))
+                if ($"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_COMPLETE)]}".ToLower().Equals("true"))
                 {
-                    finishPrjGridView.Rows.Add(false, $"{row[SqlContracts.COLUMN_NAME_PROJECT_NAME]}");
+                    finishPrjGridView.Rows.Add(false, $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)]}");
                 }
                 
             }
@@ -158,12 +158,12 @@ namespace ProjectTODOList
             notFinishPrjGridView.RowHeadersVisible = false;
 
             //未完了プロジェクトテーブルにデータを追加する
-            notFinishProjTbl = _db.getAllColumn(SqlContracts.TABLE_NAME_PROJECTS);
+            notFinishProjTbl = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS));
             foreach (DataRow row in notFinishProjTbl.Rows)
             {
-                if ($"{row[SqlContracts.COLUMN_NAME_COMPLETE]}".ToLower().Equals("false"))
+                if ($"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_COMPLETE)]}".ToLower().Equals("false"))
                 {
-                    notFinishPrjGridView.Rows.Add(false, $"{row[SqlContracts.COLUMN_NAME_PROJECT_NAME]}", $"{row[SqlContracts.COLUMN_NAME_PLANNED_HOURS]}", $"{row[SqlContracts.COLUMN_NAME_ACTUAL_HOURS]}", $"{row[SqlContracts.COLUMN_NAME_DESIGN_DOCUMENT_LINK]}");
+                    notFinishPrjGridView.Rows.Add(false, $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)]}", $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PLANNED_HOURS)]}", $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_ACTUAL_HOURS)]}", $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_DESIGN_DOCUMENT_LINK)]}");
                 }
             }
 
@@ -240,13 +240,13 @@ namespace ProjectTODOList
             //チェックがついた完了プロジェクトを未完了プロジェクトに設定
             for (int i = 0; i < targetToNotfinishProj.Count; i++)
             {
-                sqlList.Add($"update {SqlContracts.TABLE_NAME_PROJECTS} set {SqlContracts.COLUMN_NAME_COMPLETE} =0 where {SqlContracts.COLUMN_NAME_PROJECT_NAME} = \"{targetToNotfinishProj[i]}\" ");
+                sqlList.Add($"update {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS)} set {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_COMPLETE)} =0 where {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)} = \"{targetToNotfinishProj[i]}\" ");
             }
 
             //チェックがついた未完了プロジェクトを完了プロジェクトに設定
             for (int i = 0; i < targetTofinishProj.Count; i++)
             {
-                sqlList.Add($"update {SqlContracts.TABLE_NAME_PROJECTS} set {SqlContracts.COLUMN_NAME_COMPLETE} =1 where {SqlContracts.COLUMN_NAME_PROJECT_NAME} = \"{targetTofinishProj[i]}\" ");
+                sqlList.Add($"update {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS)} set {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_COMPLETE)} =1 where {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)} = \"{targetTofinishProj[i]}\" ");
             }
 
             // 更新するかの確認ダイアログ
@@ -293,7 +293,7 @@ namespace ProjectTODOList
 
             for(int i = 0; i < targetDelProj.Count; i++)
             {
-                String sql = $"delete from {SqlContracts.TABLE_NAME_PROJECTS} where {SqlContracts.COLUMN_NAME_PROJECT_NAME} = \"{targetDelProj[i]}\" ";
+                String sql = $"delete from {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS)} where {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME)} = \"{targetDelProj[i]}\" ";
                 sqlList[i] = sql;
             }
 
@@ -433,9 +433,9 @@ namespace ProjectTODOList
                  docLink = notFinishPrjGridView.Rows[rowIndex].Cells[4].Value.ToString(); // 実工数
 
 
-                    DataTable table = _db.getAllColumn(SqlContracts.TABLE_NAME_PROJECTS);
-                   int projectIdNum= table.Columns.IndexOf(SqlContracts.COLUMN_NAME_PROJECT_ID);
-                    int projectNameNum = table.Columns.IndexOf(SqlContracts.COLUMN_NAME_PROJECT_NAME);
+                    DataTable table = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_PROJECTS));
+                   int projectIdNum= table.Columns.IndexOf(AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_ID));
+                    int projectNameNum = table.Columns.IndexOf(AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_NAME));
 
                     foreach (DataRow row in table.Rows)
                     {
@@ -456,5 +456,9 @@ namespace ProjectTODOList
             }
         }
 
+        private void notFinishPrjGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

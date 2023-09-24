@@ -59,7 +59,7 @@ namespace ProjectTODOList
         private String _projectId = null;
 
         //DBのインスタンスクラスとの接続
-        private DBConnection _db = new DBConnection(SqlContracts.SERVER_NAME, SqlContracts.PORT_NUM, SqlContracts.DATABASE_NAME, SqlContracts.USER_NAME, SqlContracts.PASSWORD);
+        private DBConnection _db = new DBConnection(AppJsonAccess.getValue(SqlContracts.SERVER_NAME), AppJsonAccess.getValue(SqlContracts.PORT_NUM), AppJsonAccess.getValue(SqlContracts.DATABASE_NAME), AppJsonAccess.getValue(SqlContracts.USER_NAME), AppJsonAccess.getValue(SqlContracts.PASSWORD));
 
         DataTable _todoListTable = null;
         /// <summary>
@@ -108,7 +108,7 @@ namespace ProjectTODOList
         private void setTodoList()
         {
 
-            _todoListTable = _db.getAllColumn(SqlContracts.TABLE_NAME_TODOLIST_TABLE);
+            _todoListTable = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE));
             todoListReflesh(_todoListTable);
 
 
@@ -149,17 +149,17 @@ namespace ProjectTODOList
             todoList.Rows.Clear();
 
             //日付で降順に並べる
-            todoListTable.Select("", SqlContracts.COLUMN_NAME_TODOLIST_REGIST_DATE + " desc");
+            todoListTable.Select("", AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_REGIST_DATE) + " desc");
 
             int i = 0;
             foreach (DataRow row in todoListTable.Rows)
             {
                 
 
-                if (row[SqlContracts.COLUMN_NAME_PROJECT_ID].ToString().Equals(_projectId))
+                if (row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_ID)].ToString().Equals(_projectId))
                 {
-                    bool checkBoxValue = (!row[SqlContracts.COLUMN_NAME_TODOLIST_CHECK].ToString().Equals("0"));
-                    todoList.Rows.Add($"{checkBoxValue}",$"{row[SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS]}", false);
+                    bool checkBoxValue = (!row[ AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CHECK) ].ToString().Equals("0"));
+                    todoList.Rows.Add($"{checkBoxValue}",$"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)]}", false);
 
                     if (checkBoxValue)
                     {
@@ -617,10 +617,10 @@ namespace ProjectTODOList
             if(selectedColumn.Index == 2)
             {
                 String content = todoList.Rows[e.RowIndex].Cells[1].Value.ToString();
-                String[] sqlList = { $"Delete from {SqlContracts.TABLE_NAME_TODOLIST_TABLE} where {SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS} = \"{content}\"" };
+                String[] sqlList = { $"Delete from {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE)} where {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)} = \"{content}\"" };
                 _db.DeleteCommand(sqlList,true);
 
-                _todoListTable = _db.getAllColumn(SqlContracts.TABLE_NAME_TODOLIST_TABLE);
+                _todoListTable = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE));
                 todoListReflesh(_todoListTable);
 
             }
@@ -640,7 +640,7 @@ namespace ProjectTODOList
             }
 
             String content = todoList.Rows[e.RowIndex].Cells[1].Value.ToString();
-            String[] sqlList = { $"UPDATE {SqlContracts.TABLE_NAME_TODOLIST_TABLE} SET {SqlContracts.COLUMN_NAME_TODOLIST_CHECK} = {checkBoxValue} WHERE {SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS} = \"{content}\"" };
+            String[] sqlList = { $"UPDATE {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE)} SET {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CHECK)} = {checkBoxValue} WHERE {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)} = \"{content}\"" };
             _db.UpdateCommand(sqlList, true);
         }
 
@@ -657,7 +657,7 @@ namespace ProjectTODOList
                 checkBoxValue = 1;
             }
 
-            String[] sqlList = { $"UPDATE {SqlContracts.TABLE_NAME_TODOLIST_TABLE} SET {SqlContracts.COLUMN_NAME_TODOLIST_CHECK} = {checkBoxValue} WHERE {SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS} = \"{content}\"" };
+            String[] sqlList = { $"UPDATE {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE)} SET {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CHECK)} = {checkBoxValue} WHERE {AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)} = \"{content}\"" };
             _db.UpdateCommand(sqlList, true);
         }
 
@@ -680,7 +680,7 @@ namespace ProjectTODOList
         }
 
         /// <summary>
-        /// 内容を追加したときの処理
+        /// 内容を追加するときの処理
         /// </summary>
         private void addContents()
         {
@@ -697,11 +697,11 @@ namespace ProjectTODOList
 
             DateTime now = DateTime.Now;
             String inputText = textBox1.Text;
-            String[] sqls = { $"INSERT INTO {SqlContracts.TABLE_NAME_TODOLIST_TABLE} ({SqlContracts.COLUMN_NAME_TODOLIST_CHECK},{SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS},{SqlContracts.COLUMN_NAME_TODOLIST_REGIST_DATE},{SqlContracts.COLUMN_NAME_PROJECT_ID}) values ({0},\"{textBox1.Text}\",\"{now.ToString("yyyy/MM/dd HH:mm:ss")}\",{_projectId})" };
+            String[] sqls = { $"INSERT INTO {AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE)} ({AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CHECK)},{AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)},{AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_REGIST_DATE)},{AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_PROJECT_ID)}) values ({0},\"{textBox1.Text}\",\"{now.ToString("yyyy/MM/dd HH:mm:ss")}\",{_projectId})" };
             _db.InsertCommand(sqls, true);
 
             //..
-            _todoListTable = _db.getAllColumn(SqlContracts.TABLE_NAME_TODOLIST_TABLE);
+            _todoListTable = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE));
             todoListReflesh(_todoListTable);
             textBox1.Text = null;
         }
