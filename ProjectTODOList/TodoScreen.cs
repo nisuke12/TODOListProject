@@ -1,4 +1,6 @@
-﻿using ProjectTODOList.Common;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ProjectTODOList.Common;
 using ProjectTODOList.Contracts;
 using ProjectTODOList.logic;
 using System;
@@ -7,8 +9,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -95,9 +99,55 @@ namespace ProjectTODOList
             //TODOリストの設定
             setTodoList();
 
+            //コミット情報テーブルの設定
+            setCommitInfoTableAsync();
 
 
+        }
 
+        /// <summary>
+        /// コミット情報テーブルの設定
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private async Task setCommitInfoTableAsync()
+        {
+            //パネルに詰めるようにする
+            commitInfoTable.Dock = DockStyle.Fill;
+
+            //パネルに詰める
+            commitInfoPanel.Controls.Add(commitInfoTable);
+            commitInfoPanel.Location = new Point(addButton.Location.X, panel1.Location.Y);
+            commitInfoPanel.Height = panel1.Height - 100;
+
+            GitHubConnection git = new GitHubConnection("TODOListProject");
+            IDictionary<string, string> commitInfoMap = git.GetCommitInfo();
+
+            if (commitInfoMap != null)
+            {
+                foreach (String str in commitInfoMap.Keys)
+                {
+                    IDictionary<string, string> commitNumToMessageMap = GitHubConnection.getCommitNumToMessage(str);
+                    if(commitNumToMessageMap != null)
+                    {
+                        string input = null;
+                        foreach (String strNum in commitNumToMessageMap.Keys)
+                        {
+                            input = strNum;
+                        
+
+                            // # の位置を検索
+                            int indexOfHash = input.IndexOf('#');
+
+                        if (indexOfHash != -1&& input.Substring(indexOfHash + 1).Equals(_projectId))
+                        {
+                            // # の後ろの部分を取得
+                            Console.WriteLine($"抽出した部分文字列: {commitNumToMessageMap["#"+strNum]}");
+                        }
+                        }
+                    }
+
+                }
+            }
 
         }
 
@@ -257,6 +307,9 @@ namespace ProjectTODOList
             _editButtonY = this.Height - _initEditButoonY;
             _saveButtonY = this.Height - _initSaveButoonY;
             editButton.Location = new Point(addButton.Location.X, _editButtonY);
+
+            commitInfoPanel.Location = new Point(addButton.Location.X, panel1.Location.Y);
+            commitInfoPanel.Height = panel1.Height - 100;
         }
 
 
