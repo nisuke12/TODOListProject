@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.line = new System.Windows.Forms.Label();
             this.prjInfoGridView = new System.Windows.Forms.DataGridView();
@@ -50,8 +52,9 @@
             this.editButton = new System.Windows.Forms.Button();
             this.commitInfoPanel = new System.Windows.Forms.Panel();
             this.commitInfoTable = new System.Windows.Forms.DataGridView();
-            this.commitNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commitComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectNoLabel = new System.Windows.Forms.Label();
+            this.NoCoumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commitCommentColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.prjInfoGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.todoList)).BeginInit();
             this.panel1.SuspendLayout();
@@ -92,11 +95,11 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn2.HeaderText = "プロジェクト名";
             this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -106,10 +109,10 @@
             // 予定工数
             // 
             this.予定工数.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.予定工数.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.予定工数.DefaultCellStyle = dataGridViewCellStyle2;
             this.予定工数.HeaderText = "予定工数";
             this.予定工数.MinimumWidth = 6;
             this.予定工数.Name = "予定工数";
@@ -118,10 +121,10 @@
             // 実工数
             // 
             this.実工数.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.実工数.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.実工数.DefaultCellStyle = dataGridViewCellStyle3;
             this.実工数.HeaderText = "実工数";
             this.実工数.MinimumWidth = 6;
             this.実工数.Name = "実工数";
@@ -130,9 +133,9 @@
             // 画面設計書リンク
             // 
             this.画面設計書リンク.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.画面設計書リンク.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("ＭＳ 明朝", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.画面設計書リンク.DefaultCellStyle = dataGridViewCellStyle4;
             this.画面設計書リンク.HeaderText = "画面設計書リンク";
             this.画面設計書リンク.MinimumWidth = 6;
             this.画面設計書リンク.Name = "画面設計書リンク";
@@ -195,10 +198,10 @@
             // 
             this.contentsColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.contentsColumn.DataPropertyName = "todoList_contents";
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
-            this.contentsColumn.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.contentsColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.contentsColumn.HeaderText = "内容";
             this.contentsColumn.Name = "contentsColumn";
             // 
@@ -244,32 +247,57 @@
             // 
             // commitInfoTable
             // 
+            this.commitInfoTable.AllowUserToAddRows = false;
             this.commitInfoTable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.commitInfoTable.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.commitInfoTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.commitInfoTable.ColumnHeadersVisible = false;
             this.commitInfoTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.commitNo,
-            this.commitComment});
+            this.NoCoumn,
+            this.commitCommentColumn});
             this.commitInfoTable.Location = new System.Drawing.Point(3, 3);
             this.commitInfoTable.Name = "commitInfoTable";
             this.commitInfoTable.RowHeadersVisible = false;
             this.commitInfoTable.RowTemplate.Height = 21;
             this.commitInfoTable.Size = new System.Drawing.Size(240, 408);
             this.commitInfoTable.TabIndex = 0;
+            this.commitInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.commitInfoTable_CellContentClick);
             // 
-            // commitNo
+            // projectNoLabel
             // 
-            this.commitNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.commitNo.HeaderText = "No";
-            this.commitNo.Name = "commitNo";
-            this.commitNo.Width = 21;
+            this.projectNoLabel.AutoSize = true;
+            this.projectNoLabel.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.projectNoLabel.Location = new System.Drawing.Point(54, 123);
+            this.projectNoLabel.Name = "projectNoLabel";
+            this.projectNoLabel.Size = new System.Drawing.Size(0, 20);
+            this.projectNoLabel.TabIndex = 9;
             // 
-            // commitComment
+            // NoCoumn
             // 
-            this.commitComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.commitComment.HeaderText = "コメント";
-            this.commitComment.Name = "commitComment";
+            this.NoCoumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.NoCoumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.NoCoumn.HeaderText = "No";
+            this.NoCoumn.Name = "NoCoumn";
+            this.NoCoumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.NoCoumn.Width = 5;
+            // 
+            // commitCommentColumn
+            // 
+            this.commitCommentColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            this.commitCommentColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.commitCommentColumn.HeaderText = "コメント";
+            this.commitCommentColumn.Name = "commitCommentColumn";
+            this.commitCommentColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.commitCommentColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // TodoScreen
             // 
@@ -277,6 +305,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1184, 861);
+            this.Controls.Add(this.projectNoLabel);
             this.Controls.Add(this.commitInfoPanel);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
@@ -317,7 +346,8 @@
         private System.Windows.Forms.DataGridViewButtonColumn deleteColumn;
         private System.Windows.Forms.Panel commitInfoPanel;
         private System.Windows.Forms.DataGridView commitInfoTable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commitNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commitComment;
+        private System.Windows.Forms.Label projectNoLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoCoumn;
+        private System.Windows.Forms.DataGridViewLinkColumn commitCommentColumn;
     }
 }

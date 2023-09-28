@@ -20,9 +20,11 @@ namespace ProjectTODOList.Common
     internal class GitHubConnection
     {
 
+        //コミット情報を格納するMap
+        IDictionary<string, string> commitInfoMap = new Dictionary<string, string>();
 
         //ユーザ名
-       private string _username = AppJsonAccess.getValue(GitContracts.USER_NAME);
+        private string _username = AppJsonAccess.getValue(GitContracts.USER_NAME);
         //トークン
        private string _accessToken = AppJsonAccess.getValue(GitContracts.TOKEN); 
         //リポジトリ
@@ -42,7 +44,7 @@ namespace ProjectTODOList.Common
         public GitHubConnection(string repositoryName)
         {
             _repositoryName = repositoryName;
-            GitConnect();
+            setCommitInfo();
 
         }
 
@@ -66,8 +68,9 @@ namespace ProjectTODOList.Common
         /// コミット情報を取得
         /// </summary>
         /// <returns>コミットメッセージ->差分URLのMap</returns>
-        public  IDictionary<string, string> GetCommitInfo()
+        public  void setCommitInfo()
         {
+            commitInfoMap = new Dictionary<string, string>();
                 GitConnect();
             string responseBody = _response.Content.ReadAsStringAsync().Result;
             var commits = JsonConvert.DeserializeObject<JArray>(responseBody);
@@ -76,24 +79,26 @@ namespace ProjectTODOList.Common
             // 最新のコミットのSHAを取得
             if (commits.Count > 0)
                 {
-                //コミット情報を格納するMap
-                IDictionary<string, string> commitInfoMap = new Dictionary<string, string>();
-
-
                 for (int i = 0; i < commits.Count; i++)
                 {
+                    String githubUrl = $"https://github.com/{_username}/{_repositoryName}/commit";
                     string commitSHA = commits[i]["sha"].ToString();
-                    string commitUrl = _apiUrl +"/"+ commitSHA;
+                    string commitUrl = githubUrl +"/"+ commitSHA;
                     String commitMessage = commits[i]["commit"]["message"].ToString();
 
                     commitInfoMap.Add(commitMessage, commitUrl);
                 }
-                return commitInfoMap;
                 }
-                return null;
             }
 
-
+        /// <summary>
+        /// コミットメッセージ -> URLのMapを返す
+        /// </summary>
+        /// <returns></returns>
+       public IDictionary<string, string> getCommitInfo()
+        {
+            return commitInfoMap;
+        }
 
         /// <summary>
         /// コミットメッセージから番号とメッセージをお取得する

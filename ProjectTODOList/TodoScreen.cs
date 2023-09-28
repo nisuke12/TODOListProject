@@ -37,6 +37,8 @@ namespace ProjectTODOList
         private int _editButtonY = 0;
         private int _saveButtonY = 0;
 
+        IList<string> _urlList = new List<string>();
+
         //チェックボックスの中身がクリック宇されたかどうか（チェックボックスの枠外がダブルクリックされたかの判定に使う）
         private Boolean _isCheckBoxContentsClick = false;
 
@@ -102,7 +104,19 @@ namespace ProjectTODOList
             //コミット情報テーブルの設定
             setCommitInfoTableAsync();
 
+            //ラベルの設定
+            setLabel();
 
+
+        }
+
+        /// <summary>
+        /// ラベルの設定
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void setLabel()
+        {
+            projectNoLabel.Text = $"#{_projectId}　{_projectName}";
         }
 
         /// <summary>
@@ -119,13 +133,16 @@ namespace ProjectTODOList
             commitInfoPanel.Location = new Point(addButton.Location.X, panel1.Location.Y);
             commitInfoPanel.Height = panel1.Height - 100;
 
+            //gitApiからすべてのコミットメッセージとurlを取得する
             GitHubConnection git = new GitHubConnection("TODOListProject");
-            IDictionary<string, string> commitInfoMap = git.GetCommitInfo();
+            IDictionary<string, string> commitInfoMap = git.getCommitInfo();
 
             if (commitInfoMap != null)
             {
+                int i = 1;
                 foreach (String str in commitInfoMap.Keys)
                 {
+
                     IDictionary<string, string> commitNumToMessageMap = GitHubConnection.getCommitNumToMessage(str);
                     if(commitNumToMessageMap != null)
                     {
@@ -133,15 +150,15 @@ namespace ProjectTODOList
                         foreach (String strNum in commitNumToMessageMap.Keys)
                         {
                             input = strNum;
-                        
 
-                            // # の位置を検索
-                            int indexOfHash = input.IndexOf('#');
-
-                        if (indexOfHash != -1&& input.Substring(indexOfHash + 1).Equals(_projectId))
+                        if (input.Equals(_projectId))
                         {
-                            // # の後ろの部分を取得
-                            Console.WriteLine($"抽出した部分文字列: {commitNumToMessageMap["#"+strNum]}");
+                                _urlList.Add(commitInfoMap[str]);
+                                commitInfoTable.Rows.Add(i, commitNumToMessageMap[strNum]);
+                                i++;
+                                //NoCoumn[i]
+                                // .Rows.Add($"{checkBoxValue}", $"{row[AppJsonAccess.getValue(SqlContracts.COLUMN_NAME_TODOLIST_CONTENTS)]}", false);
+                                //Console.WriteLine($"抽出した部分文字列: {commitNumToMessageMap[strNum]}");
                         }
                         }
                     }
@@ -757,6 +774,23 @@ namespace ProjectTODOList
             _todoListTable = _db.getAllColumn(AppJsonAccess.getValue(SqlContracts.TABLE_NAME_TODOLIST_TABLE));
             todoListReflesh(_todoListTable);
             textBox1.Text = null;
+        }
+
+        /// <summary>
+        /// コミット情報テーブルのコンテンツがクリックされたときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void commitInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == commitInfoTable.Columns[commitCommentColumn.Name].Index)
+            {
+                // ここでURLを設定するか、固定のURLを設定するか、データからURLを取得するなどの処理を行います。
+                string url = _urlList[e.RowIndex]; // 仮のURLを設定
+
+                // URLを起動
+                System.Diagnostics.Process.Start(url);
+            }
         }
     }
 }
